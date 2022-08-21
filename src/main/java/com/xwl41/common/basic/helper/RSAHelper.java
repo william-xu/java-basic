@@ -68,10 +68,10 @@ public class RSAHelper {
      * @param path   要保存密钥对文件的路径
      * @return 保存是否成功
      */
-    public static boolean saveKeyPair(Map<String, RSAKey> keyMap, String path) {
+    public static boolean saveKeyPair(Map<String, Key> keyMap, String path) {
         boolean saved = false;
-        RSAPublicKey publicKey = (RSAPublicKey) keyMap.get(PUBLIC.toString());
-        RSAPrivateKey privateKey = (RSAPrivateKey) keyMap.get(PRIVATE.toString());
+        Key publicKey = keyMap.get(PUBLIC.toString());
+        Key privateKey = keyMap.get(PRIVATE.toString());
 
         String keyPairStr = publicKey.toString() + "\r\n"
                 + "[" + Base64.getEncoder().encodeToString(publicKey.getEncoded()) + "]\r\n"
