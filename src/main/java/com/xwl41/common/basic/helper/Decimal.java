@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 /**
- * Java BigDecimal Simple Decorator for simplifying BigDecimal operations
+ * Java BigDecimal simple decorator for simplifying BigDecimal operations
  */
 public class Decimal extends Number implements Comparable<Decimal> {
 
