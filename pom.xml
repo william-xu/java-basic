@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.xwl41</groupId>
     <artifactId>java-basic</artifactId>
-    <version>0.0.1-SNAPSHORT</version>
+    <version>0.0.1</version>
     <name>Java Basic Library</name>
     <description>Simple Java Library</description>
     <packaging>jar</packaging>
