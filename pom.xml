@@ -7,8 +7,10 @@
     <artifactId>java-basic</artifactId>
     <version>0.0.1</version>
     <name>Java Basic Library</name>
-    <description>Simple Java Library</description>
     <packaging>jar</packaging>
+    <description>Simple Java Library</description>
+    <url>https://github.com/william-xu/java-basic</url>
+
     <properties>
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
