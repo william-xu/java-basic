@@ -33,9 +33,9 @@
         </license>
     </licenses>
     <scm>
-        <url>https://github.com/william-xu/java-basic</url>
         <connection>scm:git:git://github.com/william-xu/java-basic.git</connection>
-        <developerConnection>scm:git:git@github.com:william-xu/telegram-bot-client.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:william-xu/java-basic.git</developerConnection>
+        <url>https://github.com/william-xu/java-basic</url>
     </scm>
     <dependencies>
         <dependency>
@@ -93,7 +93,6 @@
                             <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
                             <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>
-
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
