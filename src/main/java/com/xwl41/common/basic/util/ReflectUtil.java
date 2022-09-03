@@ -1,9 +1,12 @@
 package com.xwl41.common.basic.util;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.*;
 
-public class ReflectUtil {
+class ReflectUtil {
 
     /**
      * 获取对象内所有定义的字段
@@ -81,6 +84,33 @@ public class ReflectUtil {
             e.printStackTrace();
         }
         return value;
+    }
+
+    public static boolean setFieldValue(Object obj, String fieldName, Object value){
+        try {
+            Field field = obj.getClass().getDeclaredField(fieldName);
+            field.setAccessible(true);
+            field.set(obj, value);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
+    public static <T> T newInstance(Class<? extends T> clazz){
+        T t;
+        try {
+            if(Modifier.isPublic(clazz.getModifiers())){
+                t = clazz.getDeclaredConstructor().newInstance();
+            }else{
+                Constructor<? extends T> constructor = clazz.getDeclaredConstructor();
+                constructor.setAccessible(true);
+                t = constructor.newInstance();
+            }
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+        return t;
     }
 
 }

@@ -15,10 +15,9 @@ import java.util.Map;
 
 /**
  * 核心工具类，用来保存常用的工具方法
- *
+ * <p>
  * 1）将常用方法放在核心类，是为了简化调用，如果一个类有无数方法，那么有时连选择都要选择很久，实际上使用频率最高的方法无非就那几个
  * 2）使用内部类，主要是为了对同种类型的工具方法进行分类，也是为了更容易查看选择
- *
  */
 public abstract class CoreUtil {
 
@@ -40,34 +39,34 @@ public abstract class CoreUtil {
         //  时间、日期时间转字符串（格式化）
         ////////////////////////////////////////////////////////////////////////////
 
-        public static String toString(Date date){
+        public static String toString(Date date) {
             return new SimpleDateFormat(DEFAULT_DATETIME_FORMAT).format(date);
         }
 
-        public static String toString(Date date, String datetimeFmt){
+        public static String toString(Date date, String datetimeFmt) {
             return new SimpleDateFormat(datetimeFmt).format(date);
         }
 
-        public static String toString(LocalDateTime localDateTime){
+        public static String toString(LocalDateTime localDateTime) {
             return localDateTime.format(DEFAULT_DATETIME_FORMATTER);
         }
 
-        public static String toString(LocalDateTime localDateTime, String datetimeFmt){
+        public static String toString(LocalDateTime localDateTime, String datetimeFmt) {
             return localDateTime.format(DateTimeFormatter.ofPattern(datetimeFmt));
         }
 
-        public static String toCompactDateStr(LocalDateTime localDateTime){
+        public static String toCompactDateStr(LocalDateTime localDateTime) {
             return toString(localDateTime, DEFAULT_DATE_FORMAT_COMPACT);
         }
 
-        public static String toCompactDateTimeStr(LocalDateTime localDateTime){
+        public static String toCompactDateTimeStr(LocalDateTime localDateTime) {
             return toString(localDateTime, DEFAULT_DATETIME_FORMAT_COMPACT);
         }
 
         ////////////////////////////////////////////////////////////////////////////
         //  字符串值转日期、日期时间对象
         ////////////////////////////////////////////////////////////////////////////
-        public static Date toDate(LocalDateTime localDateTime){
+        public static Date toDate(LocalDateTime localDateTime) {
             return new Date(localDateTime.toInstant(ZoneOffset.UTC).toEpochMilli());
         }
 
@@ -112,27 +111,28 @@ public abstract class CoreUtil {
         public static final int DEFAULT_SCALE = 4;
         public static final int DEFAULT_SCALE_SHORT = 2;
 
-        public static BigDecimal toDecimal(double value){
+        public static BigDecimal toDecimal(double value) {
             return new BigDecimal(String.valueOf(value));
         }
 
-        public static BigDecimal toDecimal(float value){
+        public static BigDecimal toDecimal(float value) {
             return new BigDecimal(String.valueOf(value));
         }
+
         //null转为0的处理
-        public static BigDecimal nullToZero(BigDecimal value){
+        public static BigDecimal nullToZero(BigDecimal value) {
             return value == null ? new BigDecimal("0") : value;
         }
 
-        public static BigDecimal divide(BigDecimal bd1, BigDecimal bd2){
+        public static BigDecimal divide(BigDecimal bd1, BigDecimal bd2) {
             return bd1.divide(bd2, DEFAULT_SCALE, RoundingMode.HALF_UP);
         }
 
-        public static BigDecimal divide(BigDecimal bd1, BigDecimal bd2, int scale){
+        public static BigDecimal divide(BigDecimal bd1, BigDecimal bd2, int scale) {
             return bd1.divide(bd2, scale, RoundingMode.HALF_UP);
         }
 
-        public static BigDecimal divide(BigDecimal bd1, BigDecimal bd2, RoundingMode roundingMode){
+        public static BigDecimal divide(BigDecimal bd1, BigDecimal bd2, RoundingMode roundingMode) {
             return bd1.divide(bd2, DEFAULT_SCALE, roundingMode);
         }
 
@@ -141,17 +141,18 @@ public abstract class CoreUtil {
     /**
      * 文件相关工具类
      */
-    public static class FILE{
+    public static class FILE {
         /**
          * get text content from file that exists in classpath
          * 从类路径读取文件文本内容
-         * @param path      where file located under classpath, path with filename
-         * @return          file content in text
+         *
+         * @param path where file located under classpath, path with filename
+         * @return file content in text
          */
-        public static String getTextFromResource(String path){
+        public static String getTextFromResource(String path) {
             //先尝试读取类路径
             try (InputStream in = FILE.class.getResourceAsStream(path)) {
-                if(in != null) {
+                if (in != null) {
                     try (BufferedInputStream bis = new BufferedInputStream(in)) {
                         return new String(toByteArray(bis));
                     }
@@ -165,16 +166,17 @@ public abstract class CoreUtil {
         /**
          * get text content from exists file in specified path
          * 从指定路径读取文件文本内容
-         * @param path      where file located, path with filename
-         * @return          file content in text
+         *
+         * @param path where file located, path with filename
+         * @return file content in text
          */
-        public static String getTextFromFile(String path){
+        public static String getTextFromFile(String path) {
             File f = new File(path);
-            if(!f.exists()){
+            if (!f.exists()) {
                 return null;
             }
             try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(f))) {
-                return new String( toByteArray(bis));
+                return new String(toByteArray(bis));
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -184,9 +186,10 @@ public abstract class CoreUtil {
         /**
          * read bytes from InputStream to a byte array
          * 将输入流转换为字节数组
-         * @param in                input stream
-         * @return                  byte array
-         * @throws IOException      reading exception
+         *
+         * @param in input stream
+         * @return byte array
+         * @throws IOException reading exception
          */
         private static byte[] toByteArray(InputStream in) throws IOException {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -200,8 +203,9 @@ public abstract class CoreUtil {
 
         /**
          * 将输入流保存到指定文件中
-         * @param inputStream   输入流
-         * @param fileName      要保存的目标文件
+         *
+         * @param inputStream 输入流
+         * @param fileName    要保存的目标文件
          */
         public static void saveToFile(InputStream inputStream, String fileName) {
             OutputStream os = null;
@@ -232,29 +236,45 @@ public abstract class CoreUtil {
     }
 
     ////////////////////////////////////////////////////////////////////////////
+    //  其他工具类引用和扩展
+    ////////////////////////////////////////////////////////////////////////////
+    public static class STRING extends StringUtil {
+    }
+
+    public static class COLLECTION extends CollectionUtil {
+    }
+
+    public static class MAP extends MapUtil {
+    }
+
+    public static class REFLECT extends ReflectUtil {
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
     //  常用工具类方法 -- 是否为空
     ////////////////////////////////////////////////////////////////////////////
-    public static boolean isEmpty(String str){
-        return str == null || str.trim().length() == 0;
+
+    public static boolean isEmpty(String str) {
+        return STRING.isEmpty(str);
     }
 
-    public static boolean isEmpty(Collection<?> collection){
-        return collection == null || collection.isEmpty();
+    public static boolean isEmpty(Collection<?> collection) {
+        return COLLECTION.isEmpty(collection);
     }
 
-    public static boolean isEmpty(Map<?,?> map){
-        return map == null || map.isEmpty();
+    public static boolean isEmpty(Map<?, ?> map) {
+        return MAP.isEmpty(map);
     }
 
-    public static boolean isNotEmpty(String str){
+    public static boolean isNotEmpty(String str) {
         return !isEmpty(str);
     }
 
-    public static boolean isNotEmpty(Collection<?> collection){
+    public static boolean isNotEmpty(Collection<?> collection) {
         return !isEmpty(collection);
     }
 
-    public static boolean isNotEmpty(Map<?,?> map){
+    public static boolean isNotEmpty(Map<?, ?> map) {
         return !isEmpty(map);
     }
 
