@@ -39,6 +39,11 @@ public class H2Helper extends AbstractDbHelper {
     }
 
     @Override
+    public Map<String, String> getTableColumns(Connection conn, String tableName) throws SQLException {
+        return getTableColumns(conn, config.getDbName(), tableName);
+    }
+
+    @Override
     public Map<String, String> getTableColumns(String tableSchema, String tableName) throws SQLException {
         String tempUrl = MessageFormat.format(config.getUrlTemplate(), tableSchema);
         try (Connection conn = getConnection(tempUrl)) {

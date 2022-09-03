@@ -43,17 +43,19 @@ public class H2HelperTest {
     public void testGetTableColumn() throws SQLException {
         DbHelper helper = H2Helper.newInstance();
         helper.init("","sa","","demo1");
-        helper.execute(createUserInfoTableSql);
-        System.out.println(helper.getTableColumns("user_info"));
+        Connection conn = helper.getConnection();
+        DbHelper.execute(conn, createUserInfoTableSql);
+        System.out.println(helper.getTableColumns(conn, "user_info"));
     }
 
     @Test
     public void testSetValue() throws SQLException {
         DbHelper helper = H2Helper.newInstance();
         helper.init("","sa","","demo2");
-        helper.execute(createUserInfoTableSql);
-        helper.execute(genUserInfoInsertSql(1L,"xwl","xwl@test.com"));
-        ResultSet rs = helper.executeQuery("select * from user_info");
+        Connection conn = helper.getConnection();
+        DbHelper.execute(conn, createUserInfoTableSql);
+        DbHelper.execute(conn, genUserInfoInsertSql(1L,"xwl","xwl@test.com"));
+        ResultSet rs = DbHelper.executeQuery(conn,"select * from user_info");
         UserInfo u = new UserInfo();
         DbHelper.setRsDataToObject(rs, u);
         System.out.println(u);
@@ -63,10 +65,11 @@ public class H2HelperTest {
     public void testResultToList() throws SQLException {
         DbHelper helper = H2Helper.newInstance();
         helper.init("","sa","","demo3");
-        helper.execute(createUserInfoTableSql);
-        helper.execute(genUserInfoInsertSql(2L,"leon","leon@test.com"));
-        helper.execute(genUserInfoInsertSql(3L,"william","will@test.com"));
-        ResultSet rs = helper.executeQuery("select * from user_info");
+        Connection conn = helper.getConnection();
+        DbHelper.execute(conn, createUserInfoTableSql);
+        DbHelper.execute(conn, genUserInfoInsertSql(2L,"leon","leon@test.com"));
+        DbHelper.execute(conn, genUserInfoInsertSql(3L,"william","will@test.com"));
+        ResultSet rs = DbHelper.executeQuery(conn,"select * from user_info");
         List<UserInfo> userInfoList = DbHelper.resultToList(rs, UserInfo.class);
         System.out.println(userInfoList);
     }

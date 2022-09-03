@@ -74,6 +74,8 @@ public interface DbHelper {
      */
     Map<String, String> getTableColumns(String tableName) throws SQLException;
 
+    Map<String, String> getTableColumns(Connection conn, String tableName) throws SQLException;
+
     Map<String, String> getTableColumns(String tableSchema, String tableName) throws SQLException;
 
     Map<String, String> getTableColumns(Connection conn, String tableSchema, String tableName) throws SQLException;
