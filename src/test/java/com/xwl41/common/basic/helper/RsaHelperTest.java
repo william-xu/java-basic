@@ -34,16 +34,9 @@ public class RsaHelperTest {
 
     @Test
     public void testReadFile(){
+
         String path = "D:\\data\\keys\\privateKey.pem";
         String keyContent = CoreUtil.FILE.getTextFromFile(path);
-        if(CoreUtil.isNotEmpty(keyContent)){
-            System.out.println(RSAHelper.getRSAPrivateKey(keyContent));
-        }
-    }
-
-    @Test
-    public void testReadResource(){
-        String keyContent = CoreUtil.FILE.getTextFromResource("/keys/privateKey.pem");
         if(CoreUtil.isNotEmpty(keyContent)){
             System.out.println(RSAHelper.getRSAPrivateKey(keyContent));
         }
